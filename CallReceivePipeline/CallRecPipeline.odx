@@ -1,0 +1,239 @@
+﻿#if __DESIGNER_DATA
+#error Do not define __DESIGNER_DATA.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<om:MetaModel MajorVersion="1" MinorVersion="3" Core="2b131234-7959-458d-834f-2dc0769ce683" ScheduleModel="66366196-361d-448d-976f-cab5e87496d2" xmlns:om="http://schemas.microsoft.com/BizTalk/2003/DesignerData">
+    <om:Element Type="Module" OID="d2cf0c56-9fa7-4608-b93d-793ff8e2fd03" LowerBound="1.1" HigherBound="56.1">
+        <om:Property Name="ReportToAnalyst" Value="True" />
+        <om:Property Name="Name" Value="CallReceivePipeline" />
+        <om:Property Name="Signal" Value="False" />
+        <om:Element Type="ServiceDeclaration" OID="2157dd77-2cc6-4066-9774-eed0d0d81245" ParentLink="Module_ServiceDeclaration" LowerBound="18.1" HigherBound="55.1">
+            <om:Property Name="InitializedTransactionType" Value="True" />
+            <om:Property Name="IsInvokable" Value="False" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="CallRecPipeline" />
+            <om:Property Name="Signal" Value="True" />
+            <om:Element Type="VariableDeclaration" OID="3562e78d-48ee-473c-b457-dc5e318cfebd" ParentLink="ServiceDeclaration_VariableDeclaration" LowerBound="28.1" HigherBound="29.1">
+                <om:Property Name="UseDefaultConstructor" Value="False" />
+                <om:Property Name="Type" Value="Microsoft.XLANGs.Pipeline.ReceivePipelineOutputMessages" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="InputPipeline" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="AtomicTransaction" OID="37169daf-4880-47cc-b9cd-e7cfa4cdd3c8" ParentLink="ServiceDeclaration_Transaction" LowerBound="20.21" HigherBound="20.40">
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Transaction_1" />
+                <om:Property Name="Signal" Value="False" />
+            </om:Element>
+            <om:Element Type="TransactionAttribute" OID="af0193af-37b5-46c8-a601-cbc04deadeb3" ParentLink="ServiceDeclaration_CLRAttribute" LowerBound="19.1" HigherBound="20.1">
+                <om:Property Name="Batch" Value="True" />
+                <om:Property Name="Retry" Value="True" />
+                <om:Property Name="Timeout" Value="60" />
+                <om:Property Name="Isolation" Value="Serializable" />
+                <om:Property Name="Signal" Value="False" />
+            </om:Element>
+            <om:Element Type="MessageDeclaration" OID="9f8ad092-a19a-4077-b700-e147175e072b" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="26.1" HigherBound="27.1">
+                <om:Property Name="Type" Value="System.Xml.XmlDocument" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="msgFullMessage" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="MessageDeclaration" OID="47604e4f-e6b2-45fe-a8c0-c7c0c74580b1" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="27.1" HigherBound="28.1">
+                <om:Property Name="Type" Value="CallReceivePipeline.SingleRecord" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="msgSingle" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="ServiceBody" OID="647077ea-1bbf-494f-8946-4e4937a5f090" ParentLink="ServiceDeclaration_ServiceBody">
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="Receive" OID="6f182044-5741-438f-b4af-3e37098c7573" ParentLink="ServiceBody_Statement" LowerBound="31.1" HigherBound="33.1">
+                    <om:Property Name="Activate" Value="True" />
+                    <om:Property Name="PortName" Value="Port_1" />
+                    <om:Property Name="MessageName" Value="msgFullMessage" />
+                    <om:Property Name="OperationName" Value="Operation_1" />
+                    <om:Property Name="OperationMessageName" Value="Request" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="FullMessage" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+                <om:Element Type="VariableAssignment" OID="7a3eb4c5-af16-4283-9b6e-4aed8f731146" ParentLink="ServiceBody_Statement" LowerBound="33.1" HigherBound="39.1">
+                    <om:Property Name="Expression" Value="System.Diagnostics.Trace.WriteLine(&quot;Starting&quot;);&#xD;&#xA;InputPipeline = Microsoft.XLANGs.Pipeline.XLANGPipelineManager.ExecuteReceivePipeline(typeof(CallReceivePipeline.ReceivePipeline),msgFullMessage);&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;Processed&quot;);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="CallPipeline" />
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+                <om:Element Type="While" OID="fa6260a2-a2dd-472e-be80-56dec5df0537" ParentLink="ServiceBody_Statement" LowerBound="39.1" HigherBound="53.1">
+                    <om:Property Name="Expression" Value="InputPipeline.MoveNext()" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="GetEachMessage" />
+                    <om:Property Name="Signal" Value="True" />
+                    <om:Element Type="Construct" OID="64061303-d2fe-4907-bde4-bc4a13949620" ParentLink="ComplexStatement_Statement" LowerBound="42.1" HigherBound="50.1">
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Name" Value="ConstructSingleMsg" />
+                        <om:Property Name="Signal" Value="True" />
+                        <om:Element Type="MessageAssignment" OID="11c91051-036f-453e-b2fc-6a5ae1866d59" ParentLink="ComplexStatement_Statement" LowerBound="45.1" HigherBound="49.1">
+                            <om:Property Name="Expression" Value="msgSingle = new System.Xml.XmlDocument();&#xD;&#xA;InputPipeline.GetCurrent(msgSingle);&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;Got One&quot;);" />
+                            <om:Property Name="ReportToAnalyst" Value="False" />
+                            <om:Property Name="Name" Value="MessageAssignment_1" />
+                            <om:Property Name="Signal" Value="True" />
+                        </om:Element>
+                        <om:Element Type="MessageRef" OID="6e5e1539-1c78-4f9c-9f7e-dbedf5d4a109" ParentLink="Construct_MessageRef" LowerBound="43.27" HigherBound="43.36">
+                            <om:Property Name="Ref" Value="msgSingle" />
+                            <om:Property Name="ReportToAnalyst" Value="True" />
+                            <om:Property Name="Signal" Value="False" />
+                        </om:Element>
+                    </om:Element>
+                    <om:Element Type="Send" OID="f91915b0-2110-47f9-962e-e0a8625f1960" ParentLink="ComplexStatement_Statement" LowerBound="50.1" HigherBound="52.1">
+                        <om:Property Name="PortName" Value="Port_2" />
+                        <om:Property Name="MessageName" Value="msgSingle" />
+                        <om:Property Name="OperationName" Value="Operation_1" />
+                        <om:Property Name="OperationMessageName" Value="Request" />
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Name" Value="SingleMessage" />
+                        <om:Property Name="Signal" Value="True" />
+                    </om:Element>
+                </om:Element>
+            </om:Element>
+            <om:Element Type="PortDeclaration" OID="ecfa816a-afdc-42f4-845d-eb1db6f6c3d5" ParentLink="ServiceDeclaration_PortDeclaration" LowerBound="22.1" HigherBound="24.1">
+                <om:Property Name="PortModifier" Value="Implements" />
+                <om:Property Name="Orientation" Value="Unbound" />
+                <om:Property Name="PortIndex" Value="-1" />
+                <om:Property Name="IsWebPort" Value="False" />
+                <om:Property Name="OrderedDelivery" Value="False" />
+                <om:Property Name="DeliveryNotification" Value="None" />
+                <om:Property Name="Type" Value="CallReceivePipeline.PortType_1" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Port_1" />
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="PhysicalBindingAttribute" OID="1791cc4f-b414-4536-8cc0-94e1953e5e4e" ParentLink="PortDeclaration_CLRAttribute" LowerBound="22.1" HigherBound="23.1">
+                    <om:Property Name="InPipeline" Value="Microsoft.BizTalk.DefaultPipelines.PassThruReceive" />
+                    <om:Property Name="OutPipeline" Value="Microsoft.BizTalk.DefaultPipelines.XMLTransmit" />
+                    <om:Property Name="TransportType" Value="FILE" />
+                    <om:Property Name="URI" Value="C:\SampleReceivePipelineBT2006\In\*.xml" />
+                    <om:Property Name="IsDynamic" Value="False" />
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+            </om:Element>
+            <om:Element Type="PortDeclaration" OID="acc39fc3-cf11-4ea7-a614-899f8c05fec8" ParentLink="ServiceDeclaration_PortDeclaration" LowerBound="24.1" HigherBound="26.1">
+                <om:Property Name="PortModifier" Value="Uses" />
+                <om:Property Name="Orientation" Value="Unbound" />
+                <om:Property Name="PortIndex" Value="-1" />
+                <om:Property Name="IsWebPort" Value="False" />
+                <om:Property Name="OrderedDelivery" Value="False" />
+                <om:Property Name="DeliveryNotification" Value="None" />
+                <om:Property Name="Type" Value="CallReceivePipeline.PortType_2" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Port_2" />
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="PhysicalBindingAttribute" OID="7bd08593-7d64-4b33-9d92-90f8f38f8a64" ParentLink="PortDeclaration_CLRAttribute" LowerBound="24.1" HigherBound="25.1">
+                    <om:Property Name="InPipeline" Value="Microsoft.BizTalk.DefaultPipelines.XMLReceive" />
+                    <om:Property Name="OutPipeline" Value="Microsoft.BizTalk.DefaultPipelines.PassThruTransmit" />
+                    <om:Property Name="TransportType" Value="FILE" />
+                    <om:Property Name="URI" Value="C:\SampleReceivePipelineBT2006\Out\%MessageID%.xml" />
+                    <om:Property Name="IsDynamic" Value="False" />
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+        <om:Element Type="PortType" OID="e7878d2c-c6be-4379-b7da-fa56ec31312f" ParentLink="Module_PortType" LowerBound="4.1" HigherBound="11.1">
+            <om:Property Name="Synchronous" Value="False" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="PortType_1" />
+            <om:Property Name="Signal" Value="False" />
+            <om:Element Type="OperationDeclaration" OID="3c7895da-0ed0-45c9-b0b0-64ddee0e7845" ParentLink="PortType_OperationDeclaration" LowerBound="6.1" HigherBound="10.1">
+                <om:Property Name="OperationType" Value="OneWay" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Operation_1" />
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="MessageRef" OID="e941ca4b-7b45-4244-8b02-e93f8403c340" ParentLink="OperationDeclaration_RequestMessageRef" LowerBound="8.13" HigherBound="8.35">
+                    <om:Property Name="Ref" Value="System.Xml.XmlDocument" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Request" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+        <om:Element Type="PortType" OID="09ff3e99-6b56-49ef-82d6-4186079fa45d" ParentLink="Module_PortType" LowerBound="11.1" HigherBound="18.1">
+            <om:Property Name="Synchronous" Value="False" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="PortType_2" />
+            <om:Property Name="Signal" Value="False" />
+            <om:Element Type="OperationDeclaration" OID="6f75a8e9-6cb8-43a8-9eec-61871b9f229d" ParentLink="PortType_OperationDeclaration" LowerBound="13.1" HigherBound="17.1">
+                <om:Property Name="OperationType" Value="OneWay" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Operation_1" />
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="MessageRef" OID="8ae243ee-27bf-4d69-925d-f8755dd5ee6a" ParentLink="OperationDeclaration_RequestMessageRef" LowerBound="15.13" HigherBound="15.25">
+                    <om:Property Name="Ref" Value="CallReceivePipeline.SingleRecord" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Request" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+    </om:Element>
+</om:MetaModel>
+#endif // __DESIGNER_DATA
+[Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+module CallReceivePipeline
+{
+    internal porttype PortType_1
+    {
+        oneway Operation_1
+        {
+            System.Xml.XmlDocument
+        };
+    };
+    internal porttype PortType_2
+    {
+        oneway Operation_1
+        {
+            SingleRecord
+        };
+    };
+    [Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+    [Microsoft.XLANGs.BaseTypes.Transaction(Retry=true,Batch=true,Timeout=60,TranIsolationLevel=System.Data.IsolationLevel.Serializable)]
+    internal service atomic transaction CallRecPipeline
+    {
+        [Microsoft.XLANGs.BaseTypes.PhysicalBinding("FILE", "C:\\SampleReceivePipelineBT2006\\In\\*.xml", typeof(Microsoft.BizTalk.DefaultPipelines.PassThruReceive))]
+        port implements PortType_1 Port_1;
+        [Microsoft.XLANGs.BaseTypes.PhysicalBinding("FILE", "C:\\SampleReceivePipelineBT2006\\Out\\%MessageID%.xml", typeof(Microsoft.BizTalk.DefaultPipelines.PassThruTransmit))]
+        port uses PortType_2 Port_2;
+        message System.Xml.XmlDocument msgFullMessage;
+        message SingleRecord msgSingle;
+        Microsoft.XLANGs.Pipeline.ReceivePipelineOutputMessages InputPipeline;
+        body ()
+        {
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("6f182044-5741-438f-b4af-3e37098c7573")]
+            activate receive (Port_1.Operation_1, msgFullMessage);
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("7a3eb4c5-af16-4283-9b6e-4aed8f731146")]
+            System.Diagnostics.Trace.WriteLine("Starting");
+            InputPipeline = Microsoft.XLANGs.Pipeline.XLANGPipelineManager.ExecuteReceivePipeline(typeof(CallReceivePipeline.ReceivePipeline),msgFullMessage);
+            System.Diagnostics.Trace.WriteLine("Processed");
+            
+            
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("fa6260a2-a2dd-472e-be80-56dec5df0537")]
+            while (InputPipeline.MoveNext())
+            {
+                [Microsoft.XLANGs.BaseTypes.DesignerPosition("64061303-d2fe-4907-bde4-bc4a13949620")]
+                construct msgSingle
+                {
+                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("11c91051-036f-453e-b2fc-6a5ae1866d59")]
+                    msgSingle = new System.Xml.XmlDocument();
+                    InputPipeline.GetCurrent(msgSingle);
+                    System.Diagnostics.Trace.WriteLine("Got One");
+                }
+                [Microsoft.XLANGs.BaseTypes.DesignerPosition("f91915b0-2110-47f9-962e-e0a8625f1960")]
+                send (Port_2.Operation_1, msgSingle);
+            }
+        }
+    }
+}
+
