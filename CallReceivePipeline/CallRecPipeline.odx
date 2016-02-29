@@ -2,11 +2,11 @@
 #error Do not define __DESIGNER_DATA.
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <om:MetaModel MajorVersion="1" MinorVersion="3" Core="2b131234-7959-458d-834f-2dc0769ce683" ScheduleModel="66366196-361d-448d-976f-cab5e87496d2" xmlns:om="http://schemas.microsoft.com/BizTalk/2003/DesignerData">
-    <om:Element Type="Module" OID="d2cf0c56-9fa7-4608-b93d-793ff8e2fd03" LowerBound="1.1" HigherBound="56.1">
+    <om:Element Type="Module" OID="d2cf0c56-9fa7-4608-b93d-793ff8e2fd03" LowerBound="1.1" HigherBound="57.1">
         <om:Property Name="ReportToAnalyst" Value="True" />
         <om:Property Name="Name" Value="CallReceivePipeline" />
         <om:Property Name="Signal" Value="False" />
-        <om:Element Type="ServiceDeclaration" OID="2157dd77-2cc6-4066-9774-eed0d0d81245" ParentLink="Module_ServiceDeclaration" LowerBound="18.1" HigherBound="55.1">
+        <om:Element Type="ServiceDeclaration" OID="2157dd77-2cc6-4066-9774-eed0d0d81245" ParentLink="Module_ServiceDeclaration" LowerBound="18.1" HigherBound="56.1">
             <om:Property Name="InitializedTransactionType" Value="True" />
             <om:Property Name="IsInvokable" Value="False" />
             <om:Property Name="TypeModifier" Value="Internal" />
@@ -59,34 +59,34 @@
                     <om:Property Name="Name" Value="FullMessage" />
                     <om:Property Name="Signal" Value="True" />
                 </om:Element>
-                <om:Element Type="VariableAssignment" OID="7a3eb4c5-af16-4283-9b6e-4aed8f731146" ParentLink="ServiceBody_Statement" LowerBound="33.1" HigherBound="39.1">
-                    <om:Property Name="Expression" Value="System.Diagnostics.Trace.WriteLine(&quot;Starting&quot;);&#xD;&#xA;InputPipeline = Microsoft.XLANGs.Pipeline.XLANGPipelineManager.ExecuteReceivePipeline(typeof(CallReceivePipeline.ReceivePipeline),msgFullMessage);&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;Processed&quot;);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" />
+                <om:Element Type="VariableAssignment" OID="7a3eb4c5-af16-4283-9b6e-4aed8f731146" ParentLink="ServiceBody_Statement" LowerBound="33.1" HigherBound="40.1">
+                    <om:Property Name="Expression" Value="System.Diagnostics.Trace.WriteLine(&quot;Starting&quot;);&#xD;&#xA;//InputPipeline &gt;&gt; Microsoft.XLANGs.Pipeline.ReceivePipelineOutputMessages&#xD;&#xA;InputPipeline = Microsoft.XLANGs.Pipeline.XLANGPipelineManager.ExecuteReceivePipeline(typeof(CallReceivePipeline.ReceivePipeline),msgFullMessage);&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;Processed&quot;);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" />
                     <om:Property Name="ReportToAnalyst" Value="True" />
                     <om:Property Name="Name" Value="CallPipeline" />
-                    <om:Property Name="Signal" Value="False" />
+                    <om:Property Name="Signal" Value="True" />
                 </om:Element>
-                <om:Element Type="While" OID="fa6260a2-a2dd-472e-be80-56dec5df0537" ParentLink="ServiceBody_Statement" LowerBound="39.1" HigherBound="53.1">
+                <om:Element Type="While" OID="fa6260a2-a2dd-472e-be80-56dec5df0537" ParentLink="ServiceBody_Statement" LowerBound="40.1" HigherBound="54.1">
                     <om:Property Name="Expression" Value="InputPipeline.MoveNext()" />
                     <om:Property Name="ReportToAnalyst" Value="True" />
                     <om:Property Name="Name" Value="GetEachMessage" />
                     <om:Property Name="Signal" Value="True" />
-                    <om:Element Type="Construct" OID="64061303-d2fe-4907-bde4-bc4a13949620" ParentLink="ComplexStatement_Statement" LowerBound="42.1" HigherBound="50.1">
+                    <om:Element Type="Construct" OID="64061303-d2fe-4907-bde4-bc4a13949620" ParentLink="ComplexStatement_Statement" LowerBound="43.1" HigherBound="51.1">
                         <om:Property Name="ReportToAnalyst" Value="True" />
                         <om:Property Name="Name" Value="ConstructSingleMsg" />
                         <om:Property Name="Signal" Value="True" />
-                        <om:Element Type="MessageAssignment" OID="11c91051-036f-453e-b2fc-6a5ae1866d59" ParentLink="ComplexStatement_Statement" LowerBound="45.1" HigherBound="49.1">
+                        <om:Element Type="MessageAssignment" OID="11c91051-036f-453e-b2fc-6a5ae1866d59" ParentLink="ComplexStatement_Statement" LowerBound="46.1" HigherBound="50.1">
                             <om:Property Name="Expression" Value="msgSingle = new System.Xml.XmlDocument();&#xD;&#xA;InputPipeline.GetCurrent(msgSingle);&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;Got One&quot;);" />
                             <om:Property Name="ReportToAnalyst" Value="False" />
                             <om:Property Name="Name" Value="MessageAssignment_1" />
                             <om:Property Name="Signal" Value="True" />
                         </om:Element>
-                        <om:Element Type="MessageRef" OID="6e5e1539-1c78-4f9c-9f7e-dbedf5d4a109" ParentLink="Construct_MessageRef" LowerBound="43.27" HigherBound="43.36">
+                        <om:Element Type="MessageRef" OID="6e5e1539-1c78-4f9c-9f7e-dbedf5d4a109" ParentLink="Construct_MessageRef" LowerBound="44.27" HigherBound="44.36">
                             <om:Property Name="Ref" Value="msgSingle" />
                             <om:Property Name="ReportToAnalyst" Value="True" />
                             <om:Property Name="Signal" Value="False" />
                         </om:Element>
                     </om:Element>
-                    <om:Element Type="Send" OID="f91915b0-2110-47f9-962e-e0a8625f1960" ParentLink="ComplexStatement_Statement" LowerBound="50.1" HigherBound="52.1">
+                    <om:Element Type="Send" OID="f91915b0-2110-47f9-962e-e0a8625f1960" ParentLink="ComplexStatement_Statement" LowerBound="51.1" HigherBound="53.1">
                         <om:Property Name="PortName" Value="Port_2" />
                         <om:Property Name="MessageName" Value="msgSingle" />
                         <om:Property Name="OperationName" Value="Operation_1" />
@@ -215,6 +215,7 @@ module CallReceivePipeline
             activate receive (Port_1.Operation_1, msgFullMessage);
             [Microsoft.XLANGs.BaseTypes.DesignerPosition("7a3eb4c5-af16-4283-9b6e-4aed8f731146")]
             System.Diagnostics.Trace.WriteLine("Starting");
+            //InputPipeline >> Microsoft.XLANGs.Pipeline.ReceivePipelineOutputMessages
             InputPipeline = Microsoft.XLANGs.Pipeline.XLANGPipelineManager.ExecuteReceivePipeline(typeof(CallReceivePipeline.ReceivePipeline),msgFullMessage);
             System.Diagnostics.Trace.WriteLine("Processed");
             
